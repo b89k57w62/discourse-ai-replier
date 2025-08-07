@@ -21,7 +21,7 @@ en:
       api_url_missing: "AI API URL is not configured"
       api_request_failed: "AI API request failed: %{error}"
       topic_not_found: "Topic not found"
-      user_not_found: "No AI user account found"
+      user_not_found: "No AI user account found (need users with email starting with 'fungps')"
       rate_limit_exceeded: "Rate limit exceeded. Please try again later."
       invalid_response: "Invalid response from AI API"
       post_creation_failed: "Failed to create reply post"

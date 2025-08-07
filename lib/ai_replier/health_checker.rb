@@ -79,7 +79,8 @@ module AiReplier
       end
 
       def ai_users
-        User.where("username LIKE 'fungps%'")
+        # Find users with email starting with 'fungps'
+        User.joins(:user_emails).where("user_emails.email LIKE 'fungps%'")
       end
 
       def rate_limit_ok?

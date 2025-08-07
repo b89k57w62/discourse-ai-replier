@@ -3,7 +3,7 @@ plugins:
   ai_replier_enabled:
     default: false
     client: true
-    description: "Enable AI automatic topic replier"
+    description: "Enable AI automatic topic replier (requires users with email starting with 'fungps')"
 
   # API Configuration
   ai_replier_api_key:
