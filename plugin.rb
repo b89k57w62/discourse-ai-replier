@@ -7,8 +7,8 @@
 
 enabled_site_setting :ai_replier_enabled
 
-gem 'faraday', require: false
-gem 'faraday-net_http', require: false
+gem 'faraday'
+gem 'faraday-net_http'
 
 register_asset 'stylesheets/discourse-ai-replier.scss'
 
