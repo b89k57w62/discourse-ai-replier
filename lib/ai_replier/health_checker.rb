@@ -79,7 +79,7 @@ module AiReplier
       end
 
       def ai_users
-        @ai_users ||= User.where("username LIKE 'fungps%'")
+        User.where("username LIKE 'fungps%'")
       end
 
       def rate_limit_ok?
