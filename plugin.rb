@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # name: discourse-ai-replier
 # about: Uses AI to automatically reply to topics to increase engagement
 # version: 1.0.0
@@ -14,14 +13,12 @@ gem 'faraday-net_http', '3.0.2', require: false
 register_asset 'stylesheets/discourse-ai-replier.scss'
 
 after_initialize do
-  # Load core modules
   load File.expand_path('../lib/ai_replier/rate_limiter.rb', __FILE__)
   load File.expand_path('../lib/ai_replier/health_checker.rb', __FILE__)
   load File.expand_path('../lib/ai_replier/topic_selector.rb', __FILE__)
   load File.expand_path('../lib/ai_replier/ai_client.rb', __FILE__)
   load File.expand_path('../lib/ai_replier/replier.rb', __FILE__)
-  
-  # Load jobs
+
   load File.expand_path('../app/jobs/scheduled/ai_topic_selector_job.rb', __FILE__)
   load File.expand_path('../app/jobs/regular/ai_create_reply_job.rb', __FILE__)
 end
