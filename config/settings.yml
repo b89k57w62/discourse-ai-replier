@@ -1,0 +1,96 @@
+plugins:
+  # Core Settings
+  ai_replier_enabled:
+    default: false
+    client: true
+    description: "Enable AI automatic topic replier"
+
+  # API Configuration
+  ai_replier_api_key:
+    default: ""
+    client: false
+    secret: true
+    description: "API key for AI service (OpenAI, Claude, etc.)"
+
+  ai_replier_api_url:
+    default: "https://api.openai.com/v1/chat/completions"
+    client: false
+    description: "AI API endpoint URL"
+
+  ai_replier_model:
+    default: "gpt-3.5-turbo"
+    client: false
+    description: "AI model to use for generating replies"
+
+  ai_replier_system_prompt:
+    default: "你是一個論壇的資深成員，你的目標是針對主題提供一個簡短、友善、能引發討論的回覆。請不要表明你是 AI。回覆請使用繁體中文。"
+    client: false
+    textarea: true
+    description: "System prompt for AI reply generation"
+
+  # Behavior Configuration
+  ai_replier_batch_size:
+    default: 10
+    client: false
+    min: 1
+    max: 50
+    description: "Maximum number of topics to process per batch"
+
+  ai_replier_cooldown_hours:
+    default: 24
+    client: false
+    min: 1
+    max: 168
+    description: "Hours to wait before AI can reply to the same topic again"
+
+  ai_replier_max_retries:
+    default: 3
+    client: false
+    min: 1
+    max: 10
+    description: "Maximum retry attempts for failed API calls"
+
+  # Quality Controls
+  ai_replier_min_topic_age_hours:
+    default: 2
+    client: false
+    min: 0
+    max: 72
+    description: "Minimum hours a topic must exist before AI can reply"
+
+  # Rate Limiting
+  ai_replier_rate_limit_per_hour:
+    default: 30
+    client: false
+    min: 1
+    max: 100
+    description: "Maximum API calls allowed per hour"
+
+  ai_replier_request_timeout:
+    default: 30
+    client: false
+    min: 10
+    max: 120
+    description: "API request timeout in seconds"
+
+  # Selection Strategy
+  ai_replier_quiet_topic_max_posts:
+    default: 5
+    client: false
+    min: 1
+    max: 20
+    description: "Maximum post count for 'quiet topic' classification"
+
+  ai_replier_old_topic_days:
+    default: 3
+    client: false
+    min: 1
+    max: 30
+    description: "Days without activity to consider a topic 'old'"
+
+  ai_replier_old_topic_min_views:
+    default: 50
+    client: false
+    min: 10
+    max: 1000
+    description: "Minimum views for an old topic to be considered worthy of revival"

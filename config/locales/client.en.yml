@@ -1,0 +1,33 @@
+en:
+  js:
+    ai_replier:
+      title: "AI Replier"
+      settings: "Settings"
+      status: "Status"
+      enabled: "Enabled"
+      disabled: "Disabled"
+      statistics: "Statistics"
+      total_replies: "Total AI Replies"
+      topics_processed: "Topics Processed"
+      last_run: "Last Run"
+      next_run: "Next Scheduled Run"
+      
+      admin:
+        title: "AI Replier Administration"
+        description: "Configure and monitor the AI automatic replier"
+        test_connection: "Test API Connection"
+        connection_success: "API connection successful"
+        connection_failed: "API connection failed"
+        clear_cooldowns: "Clear All Cooldowns"
+        cooldowns_cleared: "All cooldowns have been cleared"
+        
+      dashboard:
+        title: "AI Replier Dashboard"
+        active_users: "Active AI Users"
+        api_usage: "API Usage (Last 24h)"
+        success_rate: "Success Rate"
+        average_response_time: "Avg Response Time"
+        
+      errors:
+        configuration_incomplete: "Please complete all required settings"
+        api_unavailable: "AI API is currently unavailable"

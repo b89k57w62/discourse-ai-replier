@@ -1,0 +1,35 @@
+en:
+  site_settings:
+    ai_replier_enabled: "Enable AI automatic topic replier"
+    ai_replier_api_key: "API key for AI service"
+    ai_replier_api_url: "AI API endpoint URL"
+    ai_replier_model: "AI model to use"
+    ai_replier_system_prompt: "System prompt for AI"
+    ai_replier_batch_size: "Topics per batch"
+    ai_replier_cooldown_hours: "Cooldown period in hours"
+    ai_replier_max_retries: "Max retry attempts"
+    ai_replier_min_topic_age_hours: "Min topic age in hours"
+    ai_replier_rate_limit_per_hour: "API calls per hour"
+    ai_replier_request_timeout: "Request timeout (seconds)"
+    ai_replier_quiet_topic_max_posts: "Max posts for quiet topics"
+    ai_replier_old_topic_days: "Days to consider topic old"
+    ai_replier_old_topic_min_views: "Min views for old topics"
+
+  ai_replier:
+    errors:
+      api_key_missing: "AI API key is not configured"
+      api_url_missing: "AI API URL is not configured"
+      api_request_failed: "AI API request failed: %{error}"
+      topic_not_found: "Topic not found"
+      user_not_found: "No AI user account found"
+      rate_limit_exceeded: "Rate limit exceeded. Please try again later."
+      invalid_response: "Invalid response from AI API"
+      post_creation_failed: "Failed to create reply post"
+    
+    logs:
+      topic_selected: "Selected %{count} topics for AI replies"
+      reply_created: "AI reply created for topic #%{topic_id}"
+      reply_failed: "Failed to create reply for topic #%{topic_id}: %{error}"
+      job_started: "AI topic selector job started"
+      job_completed: "AI topic selector job completed"
+      rate_limited: "Rate limited. Waiting for cooldown."
