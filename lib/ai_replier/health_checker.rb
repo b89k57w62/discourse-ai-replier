@@ -79,7 +79,6 @@ module AiReplier
       end
 
       def ai_users
-        # Find users with email starting with 'fungps'
         User.joins(:user_emails).where("user_emails.email LIKE 'fungps%'")
       end
 

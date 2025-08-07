@@ -2,13 +2,11 @@
 
 module Jobs
   class AiTopicSelector < ::Jobs::Scheduled
-    every 3.minutes
+    every 1.hour
 
     def execute(args)
-      # Ensure plugin is enabled
       return unless SiteSetting.ai_replier_enabled?
       
-      # Check system health before proceeding
       unless AiReplier::HealthChecker.ready?
         Rails.logger.warn("AI Replier: System not ready, skipping topic selection")
         return
@@ -16,7 +14,6 @@ module Jobs
       
       Rails.logger.info(I18n.t("ai_replier.logs.job_started"))
       
-      # Select topics using waterfall strategy
       selected_topics = AiReplier::TopicSelector.select
       
       if selected_topics.empty?
@@ -26,7 +23,6 @@ module Jobs
       
       Rails.logger.info(I18n.t("ai_replier.logs.topic_selected", count: selected_topics.count))
       
-      # Enqueue individual jobs for each selected topic
       selected_topics.each do |topic|
         Jobs.enqueue(:ai_create_reply, topic_id: topic.id)
       end
