@@ -2,7 +2,7 @@
 
 module Jobs
   class AiTopicSelector < ::Jobs::Scheduled
-    every 1.hour
+    every 3.minutes
 
     def execute(args)
       # Ensure plugin is enabled
