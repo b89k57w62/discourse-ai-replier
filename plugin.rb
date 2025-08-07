@@ -7,11 +7,6 @@
 
 enabled_site_setting :ai_replier_enabled
 
-gem 'faraday'
-gem 'faraday-net_http'
-
-register_asset 'stylesheets/discourse-ai-replier.scss'
-
 after_initialize do
   load File.expand_path('../lib/ai_replier/rate_limiter.rb', __FILE__)
   load File.expand_path('../lib/ai_replier/health_checker.rb', __FILE__)
