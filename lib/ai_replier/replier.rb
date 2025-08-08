@@ -31,7 +31,7 @@ module AiReplier
         end
         
         post = create_post(ai_user, topic, reply_content)
-        if post.persisted?
+        if post && post.persisted?
           RateLimiter.set_topic_cooldown(topic.id)
           
           Rails.logger.info("AI Replier: Successfully created reply for topic ##{topic.id} (post ##{post.id})")
@@ -39,7 +39,7 @@ module AiReplier
           
           true
         else
-          error_msg = post.errors.full_messages.join(", ")
+          error_msg = post ? post.errors.full_messages.join(", ") : "Post creation returned nil"
           Rails.logger.error("AI Replier: Failed to create post for topic ##{topic.id}: #{error_msg}")
           HealthChecker.record_failure(:reply, error_msg)
           false
@@ -86,15 +86,27 @@ module AiReplier
       end
       
       def create_post(user, topic, content)
-        post_creator = PostCreator.new(
-          user,
-          topic_id: topic.id,
-          raw: content,
-          skip_validations: false,
-          skip_jobs: false
-        )
-        
-        post_creator.create
+        begin
+          post_creator = PostCreator.new(
+            user,
+            topic_id: topic.id,
+            raw: content,
+            skip_validations: false,
+            skip_jobs: false
+          )
+          
+          result = post_creator.create
+          
+          if result.nil?
+            Rails.logger.error("AI Replier: PostCreator.create returned nil for topic ##{topic.id}")
+            Rails.logger.error("User: #{user.username}, Content length: #{content.length}")
+          end
+          
+          result
+        rescue => e
+          Rails.logger.error("AI Replier: PostCreator error for topic ##{topic.id}: #{e.message}")
+          nil
+        end
       end
     end
   end
