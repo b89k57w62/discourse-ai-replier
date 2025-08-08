@@ -29,49 +29,11 @@ module AiReplier
       end
 
       def api_healthy?
-        cached_health = Discourse.redis.get(API_HEALTH_KEY)
-        return cached_health == "healthy" if cached_health.present?
-        
-        test_api_connection
-        true
+        api_configured?
       end
 
       def test_api_connection
-        return false unless api_configured?
-        
-        begin
-          require 'faraday'
-          require 'faraday/net_http'
-          
-          conn = Faraday.new do |f|
-            f.request :json
-            f.response :json
-            f.adapter Faraday.default_adapter
-            f.options.timeout = 5
-            f.options.open_timeout = 5
-          end
-
-          response = conn.post(SiteSetting.ai_replier_api_url) do |req|
-            req.headers['Authorization'] = "Bearer #{SiteSetting.ai_replier_api_key}"
-            req.headers['Content-Type'] = 'application/json'
-            req.body = {
-              model: SiteSetting.ai_replier_model,
-              messages: [
-                { role: "system", content: "Test" },
-                { role: "user", content: "Hi" }
-              ],
-              max_tokens: 5
-            }
-          end
-
-          is_healthy = response.status == 200
-          cache_api_health(is_healthy)
-          is_healthy
-        rescue => e
-          Rails.logger.error("AI Replier health check failed: #{e.message}")
-          cache_api_health(false)
-          false
-        end
+        api_configured?
       end
 
       def ai_users_available?
@@ -122,10 +84,11 @@ module AiReplier
 
       private
 
-      def cache_api_health(is_healthy)
-        status = is_healthy ? "healthy" : "unhealthy"
-        Discourse.redis.setex(API_HEALTH_KEY, 5.minutes.to_i, status)
-      end
+      # 移除缓存方法，因为不再需要API健康状态缓存
+      # def cache_api_health(is_healthy)
+      #   status = is_healthy ? "healthy" : "unhealthy"
+      #   Discourse.redis.setex(API_HEALTH_KEY, 5.minutes.to_i, status)
+      # end
 
       def last_health_check_time
         Discourse.redis.get("#{HEALTH_CHECK_KEY}:last_check")
